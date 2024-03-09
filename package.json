@@ -1,0 +1,26 @@
+{
+  "name": "oss117-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "node_modules/.bin/tsc --watch",
+    "build": "node_modules/.bin/tsc",
+    "start": "node dist/cli.js",
+    "quote": "node dist/cli.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/node": "^20.11.25",
+    "@types/yargs": "^17.0.32",
+    "typescript": "^5.4.2"
+  }
+}
