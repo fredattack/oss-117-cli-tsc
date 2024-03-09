@@ -43,8 +43,6 @@ yargs(hideBin(process.argv))
 
             const params: Record<string, any> = {};
 
-            console.log("argv", argv)
-
             if (argv.characters) {
                 const apiResponse = await fetchCharacters();
                displayCharacters(apiResponse);
