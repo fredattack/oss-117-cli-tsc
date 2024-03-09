@@ -13,8 +13,8 @@ This CLI tool is designed for fans and enthusiasts of the OSS 117 series, provid
 Provide instructions on how to install your CLI tool. Typically, this will involve cloning the repository and installing dependencies. If your project is published to npm, include those instructions as well.
 
 ```bash
-git clone https://yourprojectrepository.com/yourproject.git
-cd yourproject
+git clone https://github.com/fredattack/oss-117-cli-tsc.git
+cd oss-117-cli-tsc
 npm install
 npx tsc
 ```
