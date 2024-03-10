@@ -4,8 +4,8 @@ This CLI tool is designed for fans and enthusiasts of the OSS 117 series, provid
 
 ## Features
 + Random Quotes: Get a random OSS 117 quote with a simple command.
++ Number return: Get a number of random quotes with a simple command.
 + Character Filter: Retrieve quotes from your favorite characters.
-+ Keyword Search: Find quotes containing specific keywords.
 + Flexible: Supports multiple parameters for tailored quote retrieval.
 
 ## Installation
