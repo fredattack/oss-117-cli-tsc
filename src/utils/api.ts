@@ -48,14 +48,13 @@ export const fetchCharacters = async (): Promise<Character[]> => {
 };
 
 
-function constructURLPath(params: Record<string, any>): string {
-    if (params.character && params.number) {
-        return `/author/${params.character}/${params.number}`;
-    } else if (params.character) {
-        return `/author/${params.character}/1`;
-    } else if (params.number) {
-        return `/random/${params.number}`;
+function constructURLPath(params: { character?: string; number?: number }): string {
+    const character: string = params.character ?? '';
+    const number: number = params.number ?? 1;
+
+    if (character) {
+        return `/author/${character}/${number}`;
     }
 
-    return "/random";
+    return number > 1 ? `/random/${number}` : "/random";
 }
