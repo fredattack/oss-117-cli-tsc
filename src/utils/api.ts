@@ -1,24 +1,45 @@
 import axios from 'axios';
-import { Character, Quote } from '../types';
+import { Character, FetchQuotesParams, Quote } from '../types';
 import { getEnvVar } from './helpers';
 
 import { displayUnknownCharacters, displayError } from './display';
 
 export const fetchQuotes = async (
-  params: Record<string, any>,
+  params: FetchQuotesParams,
 ): Promise<Quote[]> => {
   try {
-    let base_url: string = getEnvVar('API_URL') || 'defaultAPIURL';
+    const apiUrl: string = getEnvVar('API_URL') || 'defaultAPIURL';
+    let { number: argsNumber, keyword, character } = params;
 
-    base_url += constructURLPath(params);
+    // Adjust the number of fetched items if keyword is present.
+    const effectiveNumber = keyword ? 1000 : argsNumber;
 
-    const response = await axios.get(base_url, { params });
+    // Construct URL with adjusted params for keyword search.
+    const requestUrl =
+      apiUrl + constructURLPath({ ...params, number: effectiveNumber });
 
-    if (params.character && !response.data) {
-      let characters = await fetchCharacters();
+    // Fetch data.
+    const response = await axios.get<Quote[]>(requestUrl);
+
+    let data = response.data;
+
+    // Filter by keyword if necessary.
+    if (keyword) {
+      data = filterResponsesByKeyword(data, keyword);
+
+      // Apply original number limit after keyword filtering if specified.
+      if (argsNumber) {
+        data = data.slice(0, argsNumber);
+      }
+    }
+
+    // Handle case when character is specified but no data is returned.
+    if (character && !data.length) {
+      const characters = await fetchCharacters();
       displayUnknownCharacters(characters);
     }
-    return response.data;
+
+    return data;
   } catch (error) {
     // @ts-ignore
     displayError('Error fetching quotes:', error.message);
@@ -51,4 +72,11 @@ function constructURLPath(params: {
   }
 
   return number > 1 ? `/random/${number}` : '/random';
+}
+
+function filterResponsesByKeyword(
+  responses: Quote[],
+  keyword: string,
+): Quote[] {
+  return responses.filter(response => response.sentence.includes(keyword));
 }

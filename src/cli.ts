@@ -19,6 +19,10 @@ yargs(hideBin(process.argv))
         describe: 'Le nombre de citations à afficher',
         type: 'number',
       },
+      keyword: {
+        describe: 'un mot clé pour filtrer les citations',
+        type: 'string',
+      },
       character: {
         describe: 'Le personnage dont on veut afficher les citations',
         type: 'string',
@@ -40,6 +44,7 @@ yargs(hideBin(process.argv))
 
       if (argv.number) params.number = argv.number;
       if (argv.character) params.character = argv.character;
+      if (argv.keyword) params.keyword = argv.keyword;
       const apiResponse = await fetchQuotes(params);
       displayQuotes(apiResponse, argv.number);
     },

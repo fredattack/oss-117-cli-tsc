@@ -12,3 +12,9 @@ export interface Character {
   name: string;
   slug: string;
 }
+
+export interface FetchQuotesParams {
+  number?: number;
+  character?: string;
+  keyword?: string;
+}
